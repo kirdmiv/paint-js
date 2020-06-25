@@ -24,6 +24,11 @@ window.addEventListener('load', () => {
     let drawing = false
     let paint = new Paint()
 
+    var slider = document.getElementById("strokeWidth");
+    slider.oninput = function() {
+        paint.strokeWidth = this.value;
+    }
+
     // Mouse handle
     canvas.addEventListener("mousedown", e => {
         drawing = true
