@@ -37,3 +37,32 @@
     background: #4CAF50;
     cursor: pointer;
   }
+
+.color {
+    border: none;
+    padding: 15px 32px;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+  
+
+#btnred {
+    background-color: red;
+}
+
+#btngreen {
+    background-color: green;
+}
+
+#btnblue {
+    background-color: blue;
+}
+
+#btnblack {
+    background-color: black;
+}
+
+#btnwhite {
+    background-color: white;
+}

@@ -1,11 +1,13 @@
 class Paint {
     constructor(){
         this.strokeWidth = 10
+        this.color = "black"
     }
 
     draw(context, e){
         context.lineWidth = this.strokeWidth
         context.lineCap = "round"
+        context.strokeStyle = this.color
 
         context.lineTo(e.clientX, e.clientY);
         context.stroke()
@@ -24,9 +26,30 @@ window.addEventListener('load', () => {
     let drawing = false
     let paint = new Paint()
 
-    var slider = document.getElementById("strokeWidth");
+    var slider = document.getElementById("strokeWidth")
     slider.oninput = function() {
-        paint.strokeWidth = this.value;
+        paint.strokeWidth = this.value
+    }
+
+    var btnred = document.getElementById("btnred")
+    btnred.onclick = function () {
+        paint.color = "red"
+    }
+    var btngreen = document.getElementById("btngreen")
+    btngreen.onclick = function () {
+        paint.color = "green"
+    }
+    var btnblue = document.getElementById("btnblue")
+    btnblue.onclick = function () {
+        paint.color = "blue"
+    }
+    var btnblack = document.getElementById("btnblack")
+    btnblack.onclick = function () {
+        paint.color = "black"
+    }
+    var btnwhite = document.getElementById("btnwhite")
+    btnwhite.onclick = function () {
+        paint.color = "white"
     }
 
     // Mouse handle
