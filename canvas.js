@@ -93,16 +93,16 @@ window.addEventListener('load', () => {
     function getTouchPos(canvasDom, touchEvent) {
         var rect = canvasDom.getBoundingClientRect();
         return {
-          x: touchEvent.touches[0].clientX - rect.left,
-          y: touchEvent.touches[0].clientY - rect.top
+          x: touchEvent.touches[0].clientX,
+          y: touchEvent.touches[0].clientY
         };
     }
 
     function getMousePos(canvasDom, e) {
         var rect = canvasDom.getBoundingClientRect();
         return {
-          x: e.clientX,
-          y: e.clientY
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
         };
     }
 
