@@ -4,15 +4,15 @@ class Paint {
         this.color = "black"
     }
 
-    draw(context, e){
+    draw(context, x, y){
         context.lineWidth = this.strokeWidth
         context.lineCap = "round"
         context.strokeStyle = this.color
 
-        context.lineTo(e.clientX, e.clientY);
+        context.lineTo(x, y);
         context.stroke()
         context.beginPath()
-        context.moveTo(e.clientX, e.clientY)
+        context.moveTo(x, y)
     }
 }
 
@@ -55,24 +55,25 @@ window.addEventListener('load', () => {
     // Mouse handle
     canvas.addEventListener("mousedown", e => {
         drawing = true
-        paint.draw(context, e)
+        mousePos = getMousePos(canvas, e)
+        paint.draw(context, mousePos.x, mousePos.y)
     })
     canvas.addEventListener("mouseup", e => {
         drawing = false
         context.beginPath()
     })
     canvas.addEventListener("mousemove", e => {
+        mousePos = getMousePos(canvas, e)
         if (drawing)
-            paint.draw(context, e)
+            paint.draw(context, mousePos.x, mousePos.y)
     })
 
     //Touch handle
     canvas.addEventListener("touchstart", function (e) {
-        mousePos = getTouchPos(canvas, e);
-        var touch = e.touches[0];
+        mousePos = getTouchPos(canvas, e)
         var mouseEvent = new MouseEvent("mousedown", {
-            clientX: touch.clientX,
-            clientY: touch.clientY
+            clientX: mousePos.x,
+            clientY: mousePos.y
         });
         canvas.dispatchEvent(mouseEvent);
     }, false);
@@ -81,10 +82,10 @@ window.addEventListener('load', () => {
         canvas.dispatchEvent(mouseEvent);
     }, false);
     canvas.addEventListener("touchmove", function (e) {
-        var touch = e.touches[0];
+        mousePos = getTouchPos(canvas, e);
         var mouseEvent = new MouseEvent("mousemove", {
-            clientX: touch.clientX,
-            clientY: touch.clientY
+            clientX: mousePos.x,
+            clientY: mousePos.y
     });
     canvas.dispatchEvent(mouseEvent);
     }, false);
@@ -95,7 +96,15 @@ window.addEventListener('load', () => {
           x: touchEvent.touches[0].clientX - rect.left,
           y: touchEvent.touches[0].clientY - rect.top
         };
-      }
+    }
+
+    function getMousePos(canvasDom, e) {
+        var rect = canvasDom.getBoundingClientRect();
+        return {
+          x: e.clientX,
+          y: e.clientY
+        };
+    }
 
     // Prevent scrolling when touching the canvas
     document.body.addEventListener("touchstart", function (e) {
